@@ -7,6 +7,8 @@ function App() {
   const [participants, setParticipants] = useState([])
   const [flipState, setFlipState] = useState(0)
   const suits = ['spades', 'hearts', 'diamonds', 'clubs']
+  const numberOfPlayers = 10
+
 
   const createDeck = () => {
     let plrs = []
@@ -32,7 +34,24 @@ function App() {
     }
     setDeck(temporaryDeck)
   }
-
+  const getButtonText = (cur) => {
+    switch (cur) {
+      case 0: return 'DEAL CARDS';
+      case 1: return 'DEAL FLOP';
+      case 2: return 'DEAL TURN';
+      case 3: return 'DEAL RIVER';
+      case 4: return 'DEAL AGAIN';
+      default: return -1
+    }
+  }
+  const handleClick = () => {
+    if (flipState < 1) {
+      createDeck()
+      setFlipState(1)
+    }
+    else if (flipState < 4) setFlipState(flipState + 1)
+    else setFlipState(0)
+  }
   const getPicture = (card) => {
     return '/img/' + card.nmbr.toString() + card.suit.charAt(0).toUpperCase() + '.png'
   }
@@ -41,43 +60,70 @@ function App() {
     const playerCSS = 'pelaaja' + player.toString()
     return (
       <>
-      <div className={playerCSS}>
-        <img src={playerImage} className="kuvat" />
-        {cards.map(k =>
-          <img src={getPicture(k)} className="kuvat" />
-        )}
-        <br />
+        <div className={playerCSS}>
+          <img src={playerImage} className="kuvat" />
+          {cards.map(k =>
+          <>
+          {flipState > 0 ?
+            <img src={getPicture(k)} className="kuvat" /> :
+            <img src='/img/blue_back.png' className="kuvat" /> } </>
+          )}
+          <br />
         </div>
       </>
     )
   }
-  const numberOfPlayers = 10
+  const flopCards = () => {
+    if(flipState < 2) {
+      return (
+        <>
+        {deck.slice(0, 3).map(k =>
+          <img src='/img/blue_back.png' className="kuvat" />
+        )}
+        </>
+      )
+    }
+    else {
+      return (
+        <>
+        {deck.slice(0, 3).map(k =>
+          <img src={getPicture(k)} className="kuvat" />
+        )} </>
+      )
+    }
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-      <h2 className="box">FLIPPIVIIDAKKO</h2>
-        <button onClick={() => createDeck()}>FLIPPAA</button>
+        <h2 className="box">FLIPPIVIIDAKKO</h2>
+        <button onClick={() => handleClick()}>{getButtonText(flipState)}</button>
         <div className="dada">
           {deck.length > 4 ?
             <>
-              
-              <div className="pelaajat">
-              <p id="pelaajat">testipesti</p>
+            <h4 className="boardi">BOARDI:</h4>
+              <div className="poyta">
+              {flopCards()}
+              {flipState < 3 ? 
+                <img src='/img/blue_back.png' className="kuvat" /> :
+                <img src={getPicture(deck[3])} className="kuvat" />
+              }
+              {flipState < 4 ? 
+                <img src='/img/blue_back.png' className="kuvat" /> :
+                <img src={getPicture(deck[4])} className="kuvat" />
+              }
               </div>
-
+              <div className="pelaajat">
+                <p id="pelaajat">testipesti</p>
+              </div>
               {participants.map(o =>
                 <PlayerCard
                   player={o}
-                  cards={deck.slice(5+(o*4), 5+(o*4)+4)}
+                  cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
                   key={o}
                 />
               )}
-              <h4 className="boardi">BOARDI:</h4>
-              <div className="poyta">
-              {deck.slice(0, 5).map(k =>
-                <img src={getPicture(k)} className="kuvat" />
-              )} </div>
+              
             </> :
             null}
 
