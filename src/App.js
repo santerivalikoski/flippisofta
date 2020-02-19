@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -39,27 +38,34 @@ function App() {
   }
   const PelaajaKortti = ({ pelaaja, kortit }) => {
     const pelaajaKuva = '/elainkuvat/' + pelaaja.toString() + '.png'
+    const pelaajaCSS = 'pelaaja' + pelaaja.toString()
     return (
       <>
+      <div className={pelaajaCSS}>
         <img src={pelaajaKuva} className="kuvat" />
         {kortit.map(k =>
           <img src={hankiKuva(k)} className="kuvat" />
         )}
         <br />
+        </div>
       </>
     )
   }
-  const pelaajamaara = 6
+  const pelaajamaara = 10
 
   return (
     <div className="App">
       <header className="App-header">
+      <h2 className="box">FLIPPIVIIDAKKO</h2>
         <button onClick={() => teePakka()}>FLIPPAA</button>
         <div className="dada">
           {pakka.length > 4 ?
             <>
               
-              
+              <div className="pelaajat">
+              <p id="pelaajat">testipesti</p>
+              </div>
+
               {osallistujat.map(o =>
                 <PelaajaKortti
                   pelaaja={o}
@@ -67,10 +73,11 @@ function App() {
                   key={o}
                 />
               )}
-              <h2>BOARDI:</h2>
+              <h4 className="boardi">BOARDI:</h4>
+              <div className="poyta">
               {pakka.slice(0, 5).map(k =>
                 <img src={hankiKuva(k)} className="kuvat" />
-              )}
+              )} </div>
             </> :
             null}
 

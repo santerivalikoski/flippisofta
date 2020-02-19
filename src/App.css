@@ -40,3 +40,31 @@
     transform: rotate(360deg);
   }
 }
+h2 {
+  color: green;
+  font-size: 100px;
+  border-radius: 50%/100px 100px 0 0;
+  border-color: black;
+  background-color: rgba(233, 123, 21, 0.966);
+}
+.boardi {
+  background-color: wheat;
+}
+.poyta {
+  border-color: violet;
+  border-radius: 60px;
+  padding: 30px;
+  background-color: rgb(41, 87, 62);
+
+}
+
+#pelaajat {
+  padding: 30px;
+  background-image: url("/public/tausta/lataus.jpg");
+}
+/* .box {
+  
+  border: solid 5px #000;
+  border-color: #000 transparent transparent transparent;
+  border-radius: 50%/100px 100px 0 0;
+} */
