@@ -1,5 +1,23 @@
+@media only screen and (orientation:portrait){
+  body {
+
+  }
+}
+
 .App {
   text-align: center;
+  /* Kääntää sisällön 90 astetta, jotta kännykällä käytettäis leveenä. 
+  height: 100vw;
+  transform: rotate(90deg); */
+}
+
+.dada {
+  /* display: grid;
+  grid-template-columns: repeat(8, 1fr); */
+}
+
+.pelaaja7, .pelaaja8, .pelaaja9, .pelaaja10  {
+  display: none;
 }
 
 .App-logo {
