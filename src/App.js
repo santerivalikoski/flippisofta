@@ -3,80 +3,80 @@ import './App.css';
 
 function App() {
 
-  const [pakka, setPakka] = useState([])
-  const [osallistujat, setOsallistujat] = useState([])
-  const maat = ['spades', 'hearts', 'diamonds', 'clubs']
+  const [deck, setDeck] = useState([])
+  const [participants, setParticipants] = useState([])
+  const [flipState, setFlipState] = useState(0)
+  const suits = ['spades', 'hearts', 'diamonds', 'clubs']
 
-  const teePakka = () => {
-    let ukkelit = []
-    for (let i = 1; i < pelaajamaara + 1; i++) {
-      ukkelit.push(i)
+  const createDeck = () => {
+    let plrs = []
+    for (let i = 1; i < numberOfPlayers + 1; i++) {
+      plrs.push(i)
     }
-    setOsallistujat(ukkelit)
-    let valipakka = []
-    for (let m of maat) {
+    setParticipants(plrs)
+    let temporaryDeck = []
+    for (let m of suits) {
       for (let i = 2; i < 15; i++) {
-        valipakka.push({
-          maa: m,
-          nro: i
+        temporaryDeck.push({
+          suit: m,
+          nmbr: i
         })
       }
     }
     let j, x, i;
-    for (i = valipakka.length - 1; i > 0; i--) {
+    for (i = temporaryDeck.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
-      x = valipakka[i];
-      valipakka[i] = valipakka[j];
-      valipakka[j] = x;
+      x = temporaryDeck[i];
+      temporaryDeck[i] = temporaryDeck[j];
+      temporaryDeck[j] = x;
     }
-    console.log(valipakka)
-    setPakka(valipakka)
+    setDeck(temporaryDeck)
   }
 
-  const hankiKuva = (kortti) => {
-    return '/img/' + kortti.nro.toString() + kortti.maa.charAt(0).toUpperCase() + '.png'
+  const getPicture = (card) => {
+    return '/img/' + card.nmbr.toString() + card.suit.charAt(0).toUpperCase() + '.png'
   }
-  const PelaajaKortti = ({ pelaaja, kortit }) => {
-    const pelaajaKuva = '/elainkuvat/' + pelaaja.toString() + '.png'
-    const pelaajaCSS = 'pelaaja' + pelaaja.toString()
+  const PlayerCard = ({ player, cards }) => {
+    const playerImage = '/elainkuvat/' + player.toString() + '.png'
+    const playerCSS = 'player' + player.toString()
     return (
       <>
-      <div className={pelaajaCSS}>
-        <img src={pelaajaKuva} className="kuvat" />
-        {kortit.map(k =>
-          <img src={hankiKuva(k)} className="kuvat" />
+      <div className={playerCSS}>
+        <img src={playerImage} className="kuvat" />
+        {cards.map(k =>
+          <img src={getPicture(k)} className="kuvat" />
         )}
         <br />
         </div>
       </>
     )
   }
-  const pelaajamaara = 10
+  const numberOfPlayers = 10
 
   return (
     <div className="App">
       <header className="App-header">
       <h2 className="box">FLIPPIVIIDAKKO</h2>
-        <button onClick={() => teePakka()}>FLIPPAA</button>
+        <button onClick={() => createDeck()}>FLIPPAA</button>
         <div className="dada">
-          {pakka.length > 4 ?
+          {deck.length > 4 ?
             <>
               
               <div className="pelaajat">
               <p id="pelaajat">testipesti</p>
               </div>
 
-              {osallistujat.map(o =>
-                <PelaajaKortti
+              {participants.map(o =>
+                <PlayerCard
                   pelaaja={o}
-                  kortit={pakka.slice(5+(o*4), 5+(o*4)+4)}
+                  cards={deck.slice(5+(o*4), 5+(o*4)+4)}
                   key={o}
                 />
               )}
               <h4 className="boardi">BOARDI:</h4>
               <div className="poyta">
-              {pakka.slice(0, 5).map(k =>
-                <img src={hankiKuva(k)} className="kuvat" />
+              {deck.slice(0, 5).map(k =>
+                <img src={getPicture(k)} className="kuvat" />
               )} </div>
             </> :
             null}
