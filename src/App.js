@@ -7,8 +7,8 @@ function App() {
   const [participants, setParticipants] = useState([])
   const [flipState, setFlipState] = useState(0)
   const suits = ['spades', 'hearts', 'diamonds', 'clubs']
-  const numberOfPlayers = 10
-
+  const [numberOfPlayers, setNumberOfPlayers] = useState(2)
+  const plrselect = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   const createDeck = () => {
     let plrs = []
@@ -63,10 +63,10 @@ function App() {
         <div className={playerCSS}>
           <img src={playerImage} className="kuvat" />
           {cards.map(k =>
-          <>
-          {flipState > 0 ?
-            <img src={getPicture(k)} className="kuvat" /> :
-            <img src='/img/blue_back.png' className="kuvat" /> } </>
+            <>
+              {flipState > 0 ?
+                <img src={getPicture(k)} className="kuvat" /> :
+                <img src='/img/blue_back.png' className="kuvat" />} </>
           )}
           <br />
         </div>
@@ -74,44 +74,47 @@ function App() {
     )
   }
   const flopCards = () => {
-    if(flipState < 2) {
+    if (flipState < 2) {
       return (
         <>
-        {deck.slice(0, 3).map(k =>
-          <img src='/img/blue_back.png' className="kuvat" />
-        )}
+          {deck.slice(0, 3).map(k =>
+            <img src='/img/blue_back.png' className="kuvat" />
+          )}
         </>
       )
     }
     else {
       return (
         <>
-        {deck.slice(0, 3).map(k =>
-          <img src={getPicture(k)} className="kuvat" />
-        )} </>
+          {deck.slice(0, 3).map(k =>
+            <img src={getPicture(k)} className="kuvat" />
+          )} </>
       )
     }
   }
-
+  
   return (
     <div className="App">
       <header className="App-header">
         <h2 className="box">FLIPPIVIIDAKKO</h2>
+        {/* <label>How many players?
+        <select options={selectoptions} onChange={handleSelect} />
+        </label> */}
         <button onClick={() => handleClick()}>{getButtonText(flipState)}</button>
         <div className="dada">
           {deck.length > 4 ?
             <>
-            <h4 className="boardi">BOARDI:</h4>
+              <h4 className="boardi">BOARDI:</h4>
               <div className="poyta">
-              {flopCards()}
-              {flipState < 3 ? 
-                <img src='/img/blue_back.png' className="kuvat" /> :
-                <img src={getPicture(deck[3])} className="kuvat" />
-              }
-              {flipState < 4 ? 
-                <img src='/img/blue_back.png' className="kuvat" /> :
-                <img src={getPicture(deck[4])} className="kuvat" />
-              }
+                {flopCards()}
+                {flipState < 3 ?
+                  <img src='/img/blue_back.png' className="kuvat" /> :
+                  <img src={getPicture(deck[3])} className="kuvat" />
+                }
+                {flipState < 4 ?
+                  <img src='/img/blue_back.png' className="kuvat" /> :
+                  <img src={getPicture(deck[4])} className="kuvat" />
+                }
               </div>
               <div className="pelaajat">
                 <p id="pelaajat">testipesti</p>
@@ -123,7 +126,7 @@ function App() {
                   key={o}
                 />
               )}
-              
+
             </> :
             null}
 
