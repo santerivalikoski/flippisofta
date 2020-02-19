@@ -7,7 +7,7 @@ function App() {
   const [participants, setParticipants] = useState([])
   const [flipState, setFlipState] = useState(0)
   const suits = ['spades', 'hearts', 'diamonds', 'clubs']
-  const [numberOfPlayers, setNumberOfPlayers] = useState(2)
+  const [numberOfPlayers, setNumberOfPlayers] = useState(6)
   const plrselect = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   const createDeck = () => {
