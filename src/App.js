@@ -38,7 +38,7 @@ function App() {
   }
   const PlayerCard = ({ player, cards }) => {
     const playerImage = '/elainkuvat/' + player.toString() + '.png'
-    const playerCSS = 'player' + player.toString()
+    const playerCSS = 'pelaaja' + player.toString()
     return (
       <>
       <div className={playerCSS}>
@@ -68,7 +68,7 @@ function App() {
 
               {participants.map(o =>
                 <PlayerCard
-                  pelaaja={o}
+                  player={o}
                   cards={deck.slice(5+(o*4), 5+(o*4)+4)}
                   key={o}
                 />
