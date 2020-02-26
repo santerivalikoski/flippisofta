@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import './App.css';
+import './Santunkokeilut.css';
 
 function App() {
 
   const [deck, setDeck] = useState([])
   const [participants, setParticipants] = useState([])
   const [flipState, setFlipState] = useState(0)
-  const suits = ['spades', 'hearts', 'diamonds', 'clubs']
   const [numberOfPlayers, setNumberOfPlayers] = useState(6)
+  const [winner, setWinner] = useState(null)
+
   const plrselect = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   const createDeck = () => {
+    const suits = ['spades', 'hearts', 'diamonds', 'clubs']
     let plrs = []
     for (let i = 1; i < numberOfPlayers + 1; i++) {
       plrs.push(i)
@@ -25,6 +27,7 @@ function App() {
         })
       }
     }
+    // SHUFFLE
     let j, x, i;
     for (i = temporaryDeck.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
@@ -57,23 +60,24 @@ function App() {
   }
   const PlayerCard = ({ player, cards }) => {
     const playerImage = '/elainkuvat/' + player.toString() + '.png'
-    const playerCSS = 'pelaaja' + player.toString()
+    const playerCSS = 'pelaaja' + player.toString() + ' kaikkipelaajat'
     return (
       <>
         <div className={playerCSS}>
           <img src={playerImage} className="kuvat" />
           {cards.map(k =>
             <>
+            <div className="playercards">
               {flipState > 0 ?
                 <img src={getPicture(k)} className="kuvat" /> :
-                <img src='/img/blue_back.png' className="kuvat" />} </>
+                <img src='/img/blue_back.png' className="kuvat" />} </div> </>
           )}
           <br />
         </div>
       </>
     )
   }
-  const flopCards = () => {
+  const FlopCards = () => {
     if (flipState < 2) {
       return (
         <>
@@ -92,21 +96,25 @@ function App() {
       )
     }
   }
-  
+
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header">Header
+      </header>
+      <main>
+      {flipState === 0 ?
+      <>
         <h2 className="box">FLIPPIVIIDAKKO</h2>
+        <button onClick={() => handleClick()}>{getButtonText(flipState)}</button> </>
+ : <>
         {/* <label>How many players?
         <select options={selectoptions} onChange={handleSelect} />
         </label> */}
-        <button onClick={() => handleClick()}>{getButtonText(flipState)}</button>
         <div className="dada">
           {deck.length > 4 ?
             <>
-              <h4 className="boardi">BOARDI:</h4>
               <div className="poyta">
-                {flopCards()}
+                <FlopCards />
                 {flipState < 3 ?
                   <img src='/img/blue_back.png' className="kuvat" /> :
                   <img src={getPicture(deck[3])} className="kuvat" />
@@ -116,9 +124,12 @@ function App() {
                   <img src={getPicture(deck[4])} className="kuvat" />
                 }
               </div>
-              <div className="pelaajat">
+              <button onClick={() => handleClick()}>{getButtonText(flipState)}</button>
+
+              {/* <div className="pelaajat">
                 <p id="pelaajat">testipesti</p>
-              </div>
+              </div> */}
+              <div className="pelaajagrid">
               {participants.map(o =>
                 <PlayerCard
                   player={o}
@@ -126,12 +137,13 @@ function App() {
                   key={o}
                 />
               )}
-
+</div>
             </> :
             null}
 
         </div>
-      </header>
+        </> }
+        </main>
     </div>
   );
 }

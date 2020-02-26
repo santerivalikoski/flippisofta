@@ -19,7 +19,10 @@
 .pelaaja7, .pelaaja8, .pelaaja9, .pelaaja10  {
   display: none;
 }
-
+.kaikkipelaajat {
+ background-color: burlywood;
+ padding: 3px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -69,8 +72,12 @@ h2 {
   background-color: wheat;
 }
 .poyta {
-  border-color: violet;
-  border-radius: 60px;
+  border-radius: 80px;
+  padding: 30px;
+  background-color: rgb(41, 87, 62);
+  border-color: black;
+  border-width: 10px;
+  border-style: solid;
   padding: 30px;
   background-color: rgb(41, 87, 62);
 
