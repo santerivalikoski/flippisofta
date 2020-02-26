@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Santunkokeilut.css';
+import './App.css';
 
 function App() {
 
@@ -48,6 +48,7 @@ function App() {
     }
   }
   const handleClick = () => {
+    console.log('meni sisää')
     if (flipState < 1) {
       createDeck()
       setFlipState(1)
@@ -67,10 +68,10 @@ function App() {
           <img src={playerImage} className="kuvat" />
           {cards.map(k =>
             <>
-            <div className="playercards">
-              {flipState > 0 ?
-                <img src={getPicture(k)} className="kuvat" /> :
-                <img src='/img/blue_back.png' className="kuvat" />} </div> </>
+              
+                {flipState > 0 ?
+                  <img src={getPicture(k)} className="kuvat" /> :
+                  <img src='/img/blue_back.png' className="kuvat" />}  </>
           )}
           <br />
         </div>
@@ -99,51 +100,51 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">Header
+      <header className="App-header">Flippiviidakko
       </header>
       <main>
-      {flipState === 0 ?
-      <>
-        <h2 className="box">FLIPPIVIIDAKKO</h2>
-        <button onClick={() => handleClick()}>{getButtonText(flipState)}</button> </>
- : <>
-        {/* <label>How many players?
+        {flipState === 0 ?
+          <div className="start-page">
+            <img className="logo" src='/img/testilogo.png' />
+            <button className="deal" onClick={() => handleClick()}>{getButtonText(flipState)}</button> </div>
+          : <>
+            {/* <label>How many players?
         <select options={selectoptions} onChange={handleSelect} />
         </label> */}
-        <div className="dada">
-          {deck.length > 4 ?
-            <>
-              <div className="poyta">
-                <FlopCards />
-                {flipState < 3 ?
-                  <img src='/img/blue_back.png' className="kuvat" /> :
-                  <img src={getPicture(deck[3])} className="kuvat" />
-                }
-                {flipState < 4 ?
-                  <img src='/img/blue_back.png' className="kuvat" /> :
-                  <img src={getPicture(deck[4])} className="kuvat" />
-                }
-              </div>
-              <button onClick={() => handleClick()}>{getButtonText(flipState)}</button>
+            <div className="playmode-page">
+              {deck.length > 4 ?
+                <>
+                  <div className="poyta">
+                    <FlopCards />
+                    {flipState < 3 ?
+                      <img src='/img/blue_back.png' className="kuvat" /> :
+                      <img src={getPicture(deck[3])} className="kuvat" />
+                    }
+                    {flipState < 4 ?
+                      <img src='/img/blue_back.png' className="kuvat" /> :
+                      <img src={getPicture(deck[4])} className="kuvat" />
+                    }
+                  </div>
+                  <button className="postflop-btn" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
 
-              {/* <div className="pelaajat">
+                  {/* <div className="pelaajat">
                 <p id="pelaajat">testipesti</p>
               </div> */}
-              <div className="pelaajagrid">
-              {participants.map(o =>
-                <PlayerCard
-                  player={o}
-                  cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
-                  key={o}
-                />
-              )}
-</div>
-            </> :
-            null}
+                  
+                    {participants.map(o =>
+                      <PlayerCard
+                        player={o}
+                        cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
+                        key={o}
+                      />
+                    )}
+                  
+                </> :
+                null}
 
-        </div>
-        </> }
-        </main>
+            </div>
+          </>}
+      </main>
     </div>
   );
 }

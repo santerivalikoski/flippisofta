@@ -1,28 +1,85 @@
-@media only screen and (orientation:portrait){
-  body {
-
-  }
-}
+@media only screen and (orientation:portrait) {}
 
 .App {
   text-align: center;
   /* Kääntää sisällön 90 astetta, jotta kännykällä käytettäis leveenä. 
   height: 100vw;
   transform: rotate(90deg); */
+  background-color: lightgray;
 }
 
-.dada {
-  /* display: grid;
-  grid-template-columns: repeat(8, 1fr); */
+.start-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+}
+
+.logo {
+  max-height: 150px;
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.deal {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.playmode-page {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 20px 200px 200px;
+  grid-row-gap: 20px;
+  grid-template-areas: 
+              ". . . . . . . ."
+              "p1 p1 p p p p p6 p6"
+              "p2 p2 p p p p p5 p5"
+              ". p3 p3 b b p4 p4 ."
+}
+
+.kaikkipelaajat {
+  justify-self: center;
+  align-self: center;
+}
+
+.pelaaja1 {
+  grid-area: p1;
+}
+
+.pelaaja2 {
+  grid-area: p2;
+}
+
+.pelaaja3 {
+  grid-area: p3;
+}
+
+.pelaaja4 {
+  grid-area: p4;
+}
+
+.pelaaja5 {
+  grid-area: p5;
+}
+
+.pelaaja6 {
+  grid-area: p6;
+}
+
+.postflop-btn {
+  grid-area: b;
+}
+
+.deal {
+  background-color: orange;
+  color: white;
+  font-size: 20px;;
 }
 
 .pelaaja7, .pelaaja8, .pelaaja9, .pelaaja10  {
   display: none;
 }
-.kaikkipelaajat {
- background-color: burlywood;
- padding: 3px;
-}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -40,7 +97,6 @@
 }
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,6 +136,7 @@ h2 {
   border-style: solid;
   padding: 30px;
   background-color: rgb(41, 87, 62);
+  grid-area: p;
 
 }
 
@@ -93,3 +150,4 @@ h2 {
   border-color: #000 transparent transparent transparent;
   border-radius: 50%/100px 100px 0 0;
 } */
+
