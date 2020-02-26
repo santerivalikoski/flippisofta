@@ -5,6 +5,7 @@
   /* Kääntää sisällön 90 astetta, jotta kännykällä käytettäis leveenä. 
   height: 100vw;
   transform: rotate(90deg); */
+  height: 100vh;
   background-color: lightgray;
 }
 
