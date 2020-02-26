@@ -43,12 +43,11 @@ function App() {
       case 1: return 'DEAL FLOP';
       case 2: return 'DEAL TURN';
       case 3: return 'DEAL RIVER';
-      case 4: return 'DEAL AGAIN';
+      case 4: return 'LISÄÄ JAKOJA';
       default: return -1
     }
   }
   const handleClick = () => {
-    console.log('meni sisää')
     if (flipState < 1) {
       createDeck()
       setFlipState(1)
@@ -65,7 +64,8 @@ function App() {
     return (
       <>
         <div className={playerCSS}>
-          <img src={playerImage} className="kuvat" />
+          <img src={playerImage} className="pelaajakuva kuvat" />
+          <div className="kortit">
           {cards.map(k =>
             <>
               
@@ -73,6 +73,7 @@ function App() {
                   <img src={getPicture(k)} className="kuvat" /> :
                   <img src='/img/blue_back.png' className="kuvat" />}  </>
           )}
+          </div>
           <br />
         </div>
       </>
