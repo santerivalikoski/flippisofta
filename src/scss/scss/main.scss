@@ -1,0 +1,176 @@
+@import './resets';
+@import './variables'
+
+@mixin flexSelfCenter {
+    justify-self: center;
+    align-self: center;
+}
+
+button {
+  font-family: $font-general;
+}
+
+.App {
+  text-align: center;
+  background-color:rgba(12, 51, 1, 0.966);
+  height: 100vh;
+}
+
+.start-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+}
+
+.deal {
+    background-color: rgb(31, 116, 73);
+    color: white;
+    font-size: 30px;;
+    grid-column: 3;
+    grid-row: 3;
+    width: 333px;
+    height: 122px;
+  }
+
+.logo {
+  max-height: 150px;
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: center;
+}
+
+.playmode-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr repeat(4, 90px) 1fr 1fr;
+  grid-template-rows: 80px 80px 80px 80px auto;
+  grid-row-gap: 8px;
+  grid-template-areas: 
+              
+              "p1 p1 . . . . p2 p2"
+              "p1 p1 p p p p p2 p2"
+              "p3 p3 p p p p p4 p4"
+              "p3 p3 . b b . p4 p4"
+              ". p5 p5 . . p6 p6 ."
+
+}
+
+.kaikkipelaajat {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1f 1fr;
+  @include flexSelfCenter;
+}
+
+.kortit {
+  grid-column: 1 / 5;
+  grid-row: 2;
+}
+
+.pelaaja1 {
+  grid-area: p1;
+}
+
+.pelaaja2 {
+  grid-area: p2;
+}
+
+.pelaaja3 {
+  grid-area: p3;
+}
+
+.pelaaja4 {
+  grid-area: p4;
+}
+
+.pelaaja5 {
+  grid-area: p5;
+}
+
+.pelaaja6 {
+  grid-area: p6;
+}
+
+.postflop-btn {
+  grid-area: b;
+  max-height: 80px;
+  border-radius: 20px;
+  background-color: rgb(31, 116, 73);
+  color: $btn-text-color;
+  font-size: 1.3em;
+
+    &:hover {
+        background-color: rgba(204, 107, 16, 0.966);
+        font-size: 1.5em;
+    }
+}
+
+
+
+.pelaaja7, .pelaaja8, .pelaaja9, .pelaaja10  {
+  
+}
+
+.kuvat {
+  /* height: 20px; */
+  /* width: 50%; */
+  max-width: 50px;
+}
+
+.pelaajakuva {
+  border-style: solid;
+  border-radius: 50%;
+  border-color: white;
+  padding: 5px;
+  background-color: $player-color;
+}
+
+.App-header {
+  background-image: linear-gradient(rgb(226, 117, 15) , rgb(255, 254, 180));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #31612aff;
+  font-family: kaushan script;
+  height: 66px;
+
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+h2 {
+  color: green;
+  font-size: 100px;
+  border-radius: 50%/100px 100px 0 0;
+  border-color: black;
+  background-color: rgba(233, 123, 21, 0.966);
+}
+
+.poyta {
+  border-radius: 200px;
+  padding: 30px;
+  background-color: rgb(41, 87, 62);
+  border-color: black;
+  border-width: 8px;
+  border-style: solid;
+  padding: 30px;
+  background-color: rgb(41, 87, 62);
+  grid-area: p;
+
+}
+
+#pelaajat {
+  padding: 30px;
+  background-image: url("/public/tausta/lataus.jpg");
+}
