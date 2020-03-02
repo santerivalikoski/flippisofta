@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './css/main.css';
+import { omahahand, compareHighcards, filterLosers, filterWinners } from './tools'
 
 function App() {
 
@@ -7,9 +8,20 @@ function App() {
   const [participants, setParticipants] = useState([])
   const [flipState, setFlipState] = useState(0)
   const [numberOfPlayers, setNumberOfPlayers] = useState(6)
-  const [winner, setWinner] = useState(null)
+  const [winningPlayer, setWinningPlayer] = useState([])
+  const [losingPlayer, setLosingPlayer] = useState([])
 
-  const plrselect = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const getWinner = () => {
+    const players = participants.map(plr => omahahand(deck.slice(5 + (plr * 4), 5 + (plr * 4) + 4), plr, deck)).sort((a, b) => b.handValue - a.handValue)
+    let winners = players.filter(hand => hand.handValue >= players[0].handValue)
+    winners = winners.sort((a, b) => 0 - compareHighcards(a.highcards, b.highcards))
+    winners = winners.filter(h => filterWinners(winners[0], h))
+    setWinningPlayer(winners.map(p => p.player))
+    let losers = players.filter(hand => hand.handValue <= players[players.length - 1].handValue)
+    losers = losers.sort((a, b) => compareHighcards(a.highcards, b.highcards) - 0)
+    losers = losers.filter(h => filterLosers(losers[0], h))
+    setLosingPlayer(losers.map(p => p.player))
+  }
 
   const createDeck = () => {
     const suits = ['spades', 'hearts', 'diamonds', 'clubs']
@@ -52,8 +64,16 @@ function App() {
       createDeck()
       setFlipState(1)
     }
-    else if (flipState < 4) setFlipState(flipState + 1)
-    else setFlipState(0)
+    else if (flipState < 3) setFlipState(flipState + 1)
+    else if (flipState < 4) {
+      getWinner()
+      setFlipState(flipState + 1)
+    }
+    else {
+      setFlipState(0)
+      setWinningPlayer([])
+      setLosingPlayer([])
+    }
   }
   const getPicture = (card) => {
     return '/img/' + card.nmbr.toString() + card.suit.charAt(0).toUpperCase() + '.png'
@@ -64,15 +84,16 @@ function App() {
     return (
       <>
         <div className={playerCSS}>
-          <img src={playerImage} className="pelaajakuva kuvat" />
+          <img alt="player" src={playerImage} className="pelaajakuva kuvat" />
+          {winningPlayer.includes(player) ? <p>Winner!</p> : null}
+          {losingPlayer.includes(player) ? <p>Loser!</p> : null}
           <div className="kortit">
-          {cards.map(k =>
-            <>
-              
+            {cards.map((k, i) =>
+              <>
                 {flipState > 0 ?
-                  <img src={getPicture(k)} className="kuvat" /> :
-                  <img src='/img/blue_back.png' className="kuvat" />}  </>
-          )}
+                  <img alt="card" key={i} src={getPicture(k)} className="kuvat" /> :
+                  <img alt="card" key={i} src='/img/blue_back.png' className="kuvat" />}  </>
+            )}
           </div>
           <br />
         </div>
@@ -83,8 +104,8 @@ function App() {
     if (flipState < 2) {
       return (
         <>
-          {deck.slice(0, 3).map(k =>
-            <img src='/img/blue_back.png' className="kuvat" />
+          {deck.slice(0, 3).map((k, i) =>
+            <img alt="card" key={i} src='/img/blue_back.png' className="kuvat" />
           )}
         </>
       )
@@ -92,8 +113,8 @@ function App() {
     else {
       return (
         <>
-          {deck.slice(0, 3).map(k =>
-            <img src={getPicture(k)} className="kuvat" />
+          {deck.slice(0, 3).map((k, i) =>
+            <img alt="card" key={i} src={getPicture(k)} className="kuvat" />
           )} </>
       )
     }
@@ -106,43 +127,44 @@ function App() {
       <main>
         {flipState === 0 ?
           <div className="start-page">
-            <img className="logo" src='/img/testilogo.png' />
+            <img alt="logo" className="logo" src='/img/testilogo.png' />
+            {numberOfPlayers > 2 ?
+              <button onClick={() => setNumberOfPlayers(numberOfPlayers - 1)} >miinus</button> :
+              <button>miinus</button>
+            }
+            {numberOfPlayers}
+            {numberOfPlayers < 10 ?
+              <button onClick={() => setNumberOfPlayers(numberOfPlayers + 1)}>plus</button> :
+              <button>plus</button>}
             <button className="deal" onClick={() => handleClick()}>{getButtonText(flipState)}</button> </div>
           : <>
-            {/* <label>How many players?
-        <select options={selectoptions} onChange={handleSelect} />
-        </label> */}
+
             <div className="playmode-page">
-              {deck.length > 4 ?
+              {deck.length > 1 ?
                 <>
                   <div className="poyta">
                     <FlopCards />
                     {flipState < 3 ?
-                      <img src='/img/blue_back.png' className="kuvat" /> :
-                      <img src={getPicture(deck[3])} className="kuvat" />
+                      <img alt="card" src='/img/blue_back.png' className="kuvat" /> :
+                      <img alt="card" src={getPicture(deck[3])} className="kuvat" />
                     }
                     {flipState < 4 ?
-                      <img src='/img/blue_back.png' className="kuvat" /> :
-                      <img src={getPicture(deck[4])} className="kuvat" />
+                      <img alt="card" src='/img/blue_back.png' className="kuvat" /> :
+                      <img alt="card" src={getPicture(deck[4])} className="kuvat" />
                     }
                   </div>
                   <button className="postflop-btn" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
 
-                  {/* <div className="pelaajat">
-                <p id="pelaajat">testipesti</p>
-              </div> */}
-                  
-                    {participants.map(o =>
-                      <PlayerCard
-                        player={o}
-                        cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
-                        key={o}
-                      />
-                    )}
-                  
+                  {participants.map((o, i) =>
+                    <PlayerCard
+                      key={i}
+                      player={o}
+                      cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
+                    />
+                  )}
+
                 </> :
                 null}
-
             </div>
           </>}
       </main>
