@@ -45,20 +45,27 @@ function poker(hand) {
   export const omahahand = (cards, player, deck) => {
     let besthand = -1
     let handcards 
-
+    function go(hand) {
+        const kasi = poker(hand)
+        if (kasi.handValue > besthand) {
+          handcards = kasi.highcards;
+          besthand = kasi.handValue;
+        }
+        if(kasi.handValue === besthand) {
+          if(compareHighcards(kasi.highcards, handcards) > 0) handcards = kasi.highcards
+        }
+    }
     for (let i = 0; i < 5; i++) {
       for (let o = i + 1; o < 5; o++) {
         for (let p = o + 1; p < 5; p++) {
           for (let n = 0; n < 4; n++) {
             for (let m = n + 1; m < 4; m++) {
-              const kasi = poker([deck[i], deck[o], deck[p], cards[n], cards[m]])
-              if (kasi.handValue > besthand) {
-                handcards = kasi.highcards;
-                besthand = kasi.handValue;
-              }
-              if(kasi.handValue === besthand) {
-                if(compareHighcards(kasi.highcards, handcards) > 0) handcards = kasi.highcards
-              }
+                let hand = [deck[i], deck[o], deck[p], cards[n], cards[m]]
+                go(hand)
+                if(hand.map(h => h.nmbr).includes(14)) {
+                    let aceSmall = hand.map(h => h.nmbr !== 14 ? h : {suit: h.suit, nmbr: 1})
+                    go(aceSmall)
+                }
             }
           }
         }
