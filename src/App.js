@@ -212,7 +212,6 @@ function App() {
                       cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
                     />
                   )}
-                  <button onClick={() => console.log(winningPlayer)}>aani</button>
                 </> :
                 null}
             </div>
