@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './Santunkokeilu2.css'
 import { omahahand, compareHighcards, filterLosers, filterWinners } from './tools'
 
+
 function App() {
 
   const [deck, setDeck] = useState([])
@@ -89,7 +90,7 @@ function App() {
       <>
         <div className={playerCSS} >
           <img alt="player" src={playerImage} className="pelaajakuva kuvat" id={playerID} />
-       
+
           <div className="kortit">
             {cards.map((k, i) =>
               <>
@@ -123,6 +124,7 @@ function App() {
     }
   }
 
+
   return (
     <div className="App">
       <header className="App-header">Flippiviidakko
@@ -130,23 +132,23 @@ function App() {
       <main>
         {flipState === 0 ?
           <div className="start-page">
-          
+
             <img alt="logo" className="logo" src='/img/testilogo.png' />
             <div>
-            {numberOfPlayers > 2 ?
-              <button className="btn-minus" onClick={() => setNumberOfPlayers(numberOfPlayers - 1)} >-</button> :
-              <button className="btn-minus">-</button>
-            }
-            {numberOfPlayers}
-            {numberOfPlayers < 10 ?
-              <button className="btn-plus" onClick={() => setNumberOfPlayers(numberOfPlayers + 1)}>+</button> :
-              <button className="btn-plus">+</button>}
+              {numberOfPlayers > 2 ?
+                <button className="btn-minus" onClick={() => setNumberOfPlayers(numberOfPlayers - 1)} >-</button> :
+                <button className="btn-minus">-</button>
+              }
+              {numberOfPlayers}
+              {numberOfPlayers < 10 ?
+                <button className="btn-plus" onClick={() => setNumberOfPlayers(numberOfPlayers + 1)}>+</button> :
+                <button className="btn-plus">+</button>}
               <div>
-            <button className="deal" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
-            </div> </div>
-            </div>
-            : 
-          
+                <button className="deal" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
+              </div> </div>
+          </div>
+          :
+
           <>
 
             <div className="playmode-page">

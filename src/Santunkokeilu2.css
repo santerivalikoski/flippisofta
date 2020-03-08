@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   min-height: 100vh;
-  background: linear-gradient(lightblue, transparent 50%), linear-gradient(0deg, #fff, transparent 50%), #ffa949 url('./img/bg.jpg') no-repeat center;
+  background: linear-gradient( lightblue, transparent 99%), linear-gradient(0deg, black, transparent 100%), #ffa949 url('./img/bg.jpg') no-repeat center;
   background-size: cover;
 }
 .logo {
@@ -39,8 +39,12 @@ main {
   border-style: solid;
   max-width: 400px;
   margin:  30px auto 20px auto;
+
 }
 
+.playmode-page {
+ 
+}
 .deal {
   background-color: #1f7449;
   color: white;
