@@ -1,0 +1,115 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(lightblue, transparent 50%), linear-gradient(0deg, #fff, transparent 50%), #ffa949 url('./img/bg.jpg') no-repeat center;
+  background-size: cover;
+}
+.logo {
+  max-height: 40%;
+  max-width: 60%;
+  pointer-events: none;
+}
+button {
+  font-family: 'Cabin Condensed';
+}
+main {
+  /* background-image: radial-gradient(circle at top right, #ffa949 0%, firebrick 60%, dodgerblue 120%); */
+}
+
+.kuvat {
+  max-width: 40px;
+  margin:auto;
+}
+
+.pelaajagrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  /* grid-auto-rows: minmax(150px, auto); */
+  /* grid-gap: 10px; */
+}
+
+.poyta {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3.5fr;
+  border-radius: 80px;
+  padding: 30px;
+  background-color: rgb(41, 87, 62);
+  border-color: black;
+  border-width: 10px;
+  border-style: solid;
+  max-width: 400px;
+  margin:  30px auto 20px auto;
+}
+
+.deal {
+  background-color: #1f7449;
+  color: white;
+  font-size: 30px;
+  
+  width: 333px;
+  height: 122px;
+}
+.btn-plus,
+.btn-minus {
+  background-color: indianred;
+  color: white;
+  font-size: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  border: solid ;
+}
+.pelaajakuva {
+  border-style: solid;
+  border-radius: 50%;
+  border-color: white;
+  padding: 5px;
+  background-color: whitesmoke;
+  margin-left: auto;
+}
+.postflop-btn { 
+  height: 80px;
+  width: 90px;
+  border-radius: 20px;
+  background-color: #94263e;
+  color: white;
+  font-size: 1.3em;  
+  margin: auto;
+}
+.kaikkipelaajat {
+  display: grid;
+  max-width: 300px;
+  grid-template-columns: 60px auto;
+  margin: auto;
+  /* grid-template-columns: 100px auto 100px; */
+}
+.kortit {
+  
+}
+#winner {
+  background-color: gold;
+}
+#loser {
+  background-color: black;
+}
+/* .App-header {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#e2750f), to(#fffeb4));
+  background-image: linear-gradient(#e2750f, #fffeb4);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #31612aff;
+  font-family: kaushan script;
+  height: 6vh;
+} */

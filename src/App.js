@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './css/main.css';
+// import './css/main.css';
+import './Santunkokeilu2.css'
 import { omahahand, compareHighcards, filterLosers, filterWinners } from './tools'
 
 function App() {
@@ -80,13 +81,15 @@ function App() {
   }
   const PlayerCard = ({ player, cards }) => {
     const playerImage = '/elainkuvat/' + player.toString() + '.png'
+    const win = winningPlayer.includes(player) ? 'winner' : ''
+    const lose = losingPlayer.includes(player) ? 'loser' : ''
     const playerCSS = 'pelaaja' + player.toString() + ' kaikkipelaajat'
+    const playerID = win + lose
     return (
       <>
-        <div className={playerCSS}>
-          <img alt="player" src={playerImage} className="pelaajakuva kuvat" />
-          {winningPlayer.includes(player) ? <p>Winner!</p> : null}
-          {losingPlayer.includes(player) ? <p>Loser!</p> : null}
+        <div className={playerCSS} >
+          <img alt="player" src={playerImage} className="pelaajakuva kuvat" id={playerID} />
+       
           <div className="kortit">
             {cards.map((k, i) =>
               <>
@@ -127,17 +130,24 @@ function App() {
       <main>
         {flipState === 0 ?
           <div className="start-page">
+          
             <img alt="logo" className="logo" src='/img/testilogo.png' />
+            <div>
             {numberOfPlayers > 2 ?
-              <button onClick={() => setNumberOfPlayers(numberOfPlayers - 1)} >miinus</button> :
-              <button>miinus</button>
+              <button className="btn-minus" onClick={() => setNumberOfPlayers(numberOfPlayers - 1)} >-</button> :
+              <button className="btn-minus">-</button>
             }
             {numberOfPlayers}
             {numberOfPlayers < 10 ?
-              <button onClick={() => setNumberOfPlayers(numberOfPlayers + 1)}>plus</button> :
-              <button>plus</button>}
-            <button className="deal" onClick={() => handleClick()}>{getButtonText(flipState)}</button> </div>
-          : <>
+              <button className="btn-plus" onClick={() => setNumberOfPlayers(numberOfPlayers + 1)}>+</button> :
+              <button className="btn-plus">+</button>}
+              <div>
+            <button className="deal" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
+            </div> </div>
+            </div>
+            : 
+          
+          <>
 
             <div className="playmode-page">
               {deck.length > 1 ?
@@ -152,8 +162,8 @@ function App() {
                       <img alt="card" src='/img/blue_back.png' className="kuvat" /> :
                       <img alt="card" src={getPicture(deck[4])} className="kuvat" />
                     }
+                    <button className="postflop-btn" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
                   </div>
-                  <button className="postflop-btn" onClick={() => handleClick()}>{getButtonText(flipState)}</button>
 
                   {participants.map((o, i) =>
                     <PlayerCard
