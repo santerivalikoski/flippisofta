@@ -2,7 +2,32 @@ import React, { useState } from 'react';
 // import './css/main.css';
 import './Santunkokeilu2.css'
 import { omahahand, compareHighcards, filterLosers, filterWinners } from './tools'
+import UIfx from 'uifx'
+import rhinoAudio from './audio/rhino.mp3'
+import turtleAudio from './audio/turtle.mp3'
+import gorillaAudio from './audio/gorilla.mp3'
 
+const rhino = new UIfx(
+  rhinoAudio,
+  {
+    volume: 0.4, // number between 0.0 ~ 1.0
+    throttleMs: 100
+  }
+)
+const turtle = new UIfx(
+  turtleAudio,
+  {
+    volume: 0.4, // number between 0.0 ~ 1.0
+    throttleMs: 100
+  }
+)
+const gorilla = new UIfx(
+  gorillaAudio,
+  {
+    volume: 0.4, // number between 0.0 ~ 1.0
+    throttleMs: 100
+  }
+)
 
 function App() {
 
@@ -23,6 +48,8 @@ function App() {
     losers = losers.sort((a, b) => compareHighcards(a.highcards, b.highcards) - 0)
     losers = losers.filter(h => filterLosers(losers[0], h))
     setLosingPlayer(losers.map(p => p.player))
+    console.log('winningPlayer', winningPlayer)
+    return 'done'
   }
 
   const createDeck = () => {
@@ -66,10 +93,15 @@ function App() {
       createDeck()
       setFlipState(1)
     }
-    else if (flipState < 3) setFlipState(flipState + 1)
+    else if (flipState < 3) {
+      setFlipState(flipState + 1);
+    }
+
     else if (flipState < 4) {
       getWinner()
-      setFlipState(flipState + 1)
+     
+      setFlipState(flipState + 1) 
+
     }
     else {
       setFlipState(0)
@@ -174,7 +206,7 @@ function App() {
                       cards={deck.slice(5 + (o * 4), 5 + (o * 4) + 4)}
                     />
                   )}
-
+                  <button onClick={() => console.log(winningPlayer)}>aani</button>
                 </> :
                 null}
             </div>
