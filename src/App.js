@@ -95,7 +95,7 @@ function App() {
             {cards.map((k, i) =>
               <>
                 {flipState > 0 ?
-                  <img alt="card" key={i} src={getPicture(k)} className="kuvat" /> :
+                  <img alt="card" key={i} src={getPicture(k)} className="card kuvat" /> :
                   <img alt="card" key={i} src='/img/blue_back.png' className="kuvat" />}  </>
             )}
           </div>
