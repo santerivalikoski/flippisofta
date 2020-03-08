@@ -49,7 +49,7 @@ function App() {
     losers = losers.filter(h => filterLosers(losers[0], h))
     setLosingPlayer(losers.map(p => p.player))
     console.log('winningPlayer', winningPlayer)
-    return 'done'
+    return winners.map(p => p.player)
   }
 
   const createDeck = () => {
@@ -98,7 +98,13 @@ function App() {
     }
 
     else if (flipState < 4) {
-      getWinner()
+      const wiinerAudio = getWinner()
+      wiinerAudio.forEach(element => {
+        if(element === 1) rhino.play()
+        if(element === 2) turtle.play()
+        if(element === 5) gorilla.play()
+        console.log(element)
+      });
      
       setFlipState(flipState + 1) 
 
